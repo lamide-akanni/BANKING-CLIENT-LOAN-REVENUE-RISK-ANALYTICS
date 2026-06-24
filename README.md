@@ -1,15 +1,41 @@
 
-An analytics project — from raw client data to a live, interactive Power BI dashboard — covering exploratory analysis in Python, relational database design in MySQL, data modelling in Power BI, and live report hosting via Power BI Service.
+Banking Analytics Dashboard
 
-Tools: Python · My(SQL) · Power BI · Canva
+A full end-to-end data analytics project — from raw client data to a live, interactive Power BI dashboard — covering exploratory data analysis in Python, relational database design in MySQL, data modelling and star schema in Power BI, dashboard design in Canva, and live report hosting via Power BI Service.
+
+
+Author: Olamide Akanni
+Tools: Python · MySQL · Power BI · Canva
 Dataset: 3,000 banking clients · 25 financial attributes
+
+Show Image
+Show Image
+Show Image
+
+
+Table of Contents
+
+
+Project Overview
+Business Questions
+Repository Structure
+Phase 1 — Exploratory Data Analysis in Python
+Phase 2 — Building the Relational Database in MySQL
+Phase 3 — Connecting MySQL to Power BI
+Phase 4 — Data Modelling and Star Schema
+Phase 5 — Dashboard Design with Canva
+Phase 6 — Building the 4-Page Interactive Dashboard
+Phase 7 — Publishing to Power BI Service
+Key Findings
+Skills Demonstrated
+
 
 
 Project Overview
 
-This project started with a single question: What does a banking client portfolio actually look like beneath the surface?
+This project started with a single question: what does a banking client portfolio actually look like beneath the surface?
 
-With 3,000 client records and 25 financial attributes to work with, the goal was to move through every stage of the analytics pipeline — from raw data sitting in a spreadsheet, all the way to a live, reporting and interactive dashboard that a business team could open and explore on their own. No shortcuts - No skipping steps.
+With 3,000 client records and 25 financial attributes to work with, the goal was to move through every stage of the analytics pipeline — from raw data sitting in a spreadsheet, all the way to a live, interactive dashboard that a business team could open and explore on their own. No shortcuts. No skipping steps.
 
 The pipeline runs across three tools. Python handles the initial exploration — understanding the shape of the data, finding patterns, and generating visual evidence of how variables relate to each other. MySQL takes the cleaned data and gives it proper structure, turning a flat CSV file into a relational database that can be queried in multiple directions. Power BI then connects to that database, models the relationships between tables, and transforms everything into a four-page executive dashboard hosted live on Power BI Service.
 
@@ -34,30 +60,30 @@ Repository Structure
 Banking-Analytics-Dashboard/
 │
 ├── data/
-│   └── banking_clients.csv          # Raw dataset (3,000 records, 25 attributes)
+│   └── banking_clients.csv
 │
 ├── python/
-│   └── eda_analysis.ipynb           # Full exploratory data analysis notebook
+│   └── eda_analysis.ipynb
 │
 ├── sql/
-│   ├── schema.sql                   # Database and table creation scripts
-│   └── queries.sql                  # Analytical SQL queries — joins, aggregations, filters
+│   ├── schema.sql
+│   └── queries.sql
 │
 ├── dashboard/
-│   └── Banking_Dashboard.pbix       # Power BI dashboard file
+│   └── Banking_Dashboard.pbix
 │
 ├── screenshots/
-│   ├── 01_mysql_workbench_setup.png
+│   ├── 01_mysql_workbench_open.png
 │   ├── 02_python_eda_regression_plots.png
-│   ├── 03_mysql_sql_queries.png
-│   ├── 04_powerbi_data_model.png
-│   ├── 05_canva_design.png
-│   ├── 06_mysql_database_loaded.png
-│   ├── 07_dashboard_qa_explorer.png
-│   ├── 08_mysql_connect_database.png
-│   ├── 09_dashboard_home.png
-│   ├── 10_dashboard_loans.png
-│   └── 11_dashboard_deposits.png
+│   ├── 03_mysql_duplicate_check_query.png
+│   ├── 04_powerbi_star_schema.png
+│   ├── 05_canva_dashboard_design.png
+│   ├── 06_mysql_database_loaded_field_types.png
+│   ├── 07_mysql_connect_to_database.png
+│   ├── 08_dashboard_home.png
+│   ├── 09_dashboard_loans_risk.png
+│   ├── 10_dashboard_deposits.png
+│   └── 11_dashboard_qa_explorer.png
 │
 └── README.md
 
@@ -66,16 +92,15 @@ Phase 1 — Exploratory Data Analysis in Python
 
 Tools: Python · Pandas · Matplotlib · Seaborn · Jupyter Notebook
 
-Before any database was designed or any dashboard was built, the data needed to be understood. The exploratory analysis ran inside a Jupyter Notebook titled Risk Analytics in Banking and Finance, and it covered every dimension of the dataset systematically.
+Before any database was designed or any dashboard was built, the data needed to be understood properly. The exploratory analysis ran inside a Jupyter Notebook titled Risk Analytics in Banking and Finance, working through the dataset systematically from top to bottom.
 
-The first task was loading and inspecting the 3,000 client records. Missing values were identified and handled, data types were standardised, and duplicates were removed. Once the data was clean, the analysis moved into the patterns.
+The first task was loading and inspecting the 3,000 client records. Missing values were identified and handled, data types were standardised across all 25 columns, and the dataset was checked for duplicates before any analysis began. Once the data was clean, the work moved into relationships between variables.
 
-Seven regression analyses were run to examine the relationships between key financial variables. These included bank deposits against saving accounts, checking accounts against foreign currency holdings, estimated income against checking account balances, age against superannuation savings, and bank loans against credit card balances. Each regression was plotted as a scatter chart with a trend line overlaid, so the direction and strength of each relationship was immediately visible.
+Seven regression analyses were run to examine how the key financial variables related to each other. These covered bank deposits against saving accounts, checking accounts against saving accounts, checking accounts against foreign currency holdings, age against superannuation savings, estimated income against checking account balances, bank loans against credit card balances, and business lending against total bank loans. Each pair was plotted as a scatter chart with a regression line overlaid, so the direction and strength of each relationship was visible immediately.
 
 Show Image
-Regression plots generated in Jupyter Notebook showing variable relationships across the client portfolio.
 
-The outputs of this phase told a clear story before a single SQL query was written. High-income clients tended to hold larger loan balances but not proportionally larger deposits. Age showed little correlation with superannuation savings, which pointed to behavioural differences rather than age-driven accumulation. Business lending was positively correlated with total bank loans, suggesting that the same clients driving loan volume were also the biggest users of business credit facilities.
+The regression plots told a clear story before a single SQL query was written. Business lending moved closely with total bank loans, confirming that the clients driving loan volume were the same ones accessing business credit facilities. Estimated income showed only a weak relationship with checking account balances, which suggested clients were not necessarily parking income proportionally in their accounts. Age showed almost no correlation with superannuation savings — a behavioural finding rather than an age-driven one.
 
 These findings shaped every decision made in the phases that followed.
 
@@ -84,37 +109,33 @@ Phase 2 — Building the Relational Database in MySQL
 
 Tools: MySQL Workbench · SQL
 
-Once the exploratory work was complete, the cleaned data needed a proper home. A flat CSV file is fine for exploration, but it is not a foundation you can build reliable queries on. The data was moved into MySQL and structured as a relational database.
+Once the exploratory work was complete, the cleaned data needed a proper home. A flat CSV file works fine for exploration, but it is not a foundation you can build reliable, multi-dimensional queries on. The data was moved into MySQL and structured as a relational database.
 
-Setting up the connection
+Opening MySQL Workbench and setting up the connection
 
-The first step was opening MySQL Workbench and establishing a local connection. The connection was set up using Standard TCP/IP on localhost at port 3306, which is the default MySQL configuration for a local instance.
-
-Show Image
-MySQL Workbench open and connected to the local instance before the database schema was created.
+The first step was opening MySQL Workbench and establishing a connection to the local instance. The setup used Standard TCP/IP on localhost at port 3306 — the default configuration for a local MySQL installation.
 
 Show Image
-Configuring the database connection in MySQL Workbench using Standard TCP/IP.
+
+With Workbench open, a new connection was configured using the Connect to Database dialog, pointing to localhost on port 3306. The connection was tested and confirmed before any schema work began.
+
+Show Image
 
 Creating the schema and loading the data
 
-A new schema called banking_case was created to hold all the project tables. The main client table, clients_banking, was defined with client_id as the primary key — a VARCHAR field that uniquely identifies each record. The remaining 24 columns were mapped to appropriate data types: numerical fields for financial values, text fields for categorical attributes like nationality and loyalty class, and date fields for time-based columns like join date.
+A new schema called banking_case was created to hold all the project tables. The main client table, clients_banking, was defined with client_id as the primary key. The remaining columns were mapped to appropriate data types — VARCHAR for identifiers and categorical fields like nationality and loyalty class, numeric types for financial values, and date types for time-based columns like join date.
 
-The cleaned CSV was loaded directly into the table using LOAD DATA INFILE, which populated all 3,000 rows in a single operation. A quick SELECT * FROM clients_banking LIMIT 50 confirmed the data had loaded correctly and the field types were reading as expected.
+The cleaned CSV was loaded directly into the table, populating all 3,000 rows in a single operation. The Field Types panel in Workbench confirmed the schema structure was correct — client_id, name, age, location_id, joined_bank, banking_contact, and nationality all reading with the right types against the banking_case schema.
 
 Show Image
-The banking_case schema with the clients_banking table showing all 3,000 rows successfully loaded and the field structure visible in the Field Types panel.
 
 Writing the analytical queries
 
-With the data in place, a series of SQL queries were written to answer the business questions directly from the database. These included multi-table joins to bring in lookup data from supporting tables — investment advisors, banking relationship types, and gender classifications — as well as aggregation queries to calculate totals and segment breakdowns.
-
-One of the more specific queries checked for duplicate client IDs using GROUP BY client_id HAVING COUNT(*) > 1, which returned zero rows and confirmed the data integrity of the primary key across all 3,000 records.
+With the data in place, a series of SQL queries were written to interrogate the database from multiple angles. One specific query checked for duplicate client IDs using GROUP BY client_id HAVING COUNT(*) > 1. The result grid came back empty — zero rows — which confirmed the primary key integrity across all 3,000 records. The action output panel at the bottom tracked every execution: the table creation, the data load, the SELECT queries, and the duplicate check, with row counts and timings logged for each.
 
 Show Image
-SQL queries running in MySQL Workbench, including joins and aggregations against the clients_banking table. The output panel shows successful execution logs.
 
-The action output panel tracked every query execution, showing row counts, timing, and any errors. By the end of this phase, the database was clean, structured, and fully queryable — ready to be connected to Power BI.
+By the end of this phase, the database was clean, structured, and fully queryable — ready to be connected directly to Power BI.
 
 
 Phase 3 — Connecting MySQL to Power BI
@@ -123,93 +144,77 @@ Tools: Power BI Desktop · MySQL Connector
 
 The bridge between the database and the dashboard was built through Power BI's native MySQL connector. Inside Power BI Desktop, the data import process started by selecting MySQL Database as the source, then pointing it at the local instance on localhost:3306 and selecting the banking_case schema.
 
-Power BI pulled in all the tables from the schema in a single connection — the main clients_banking fact table along with the supporting dimension tables for investment advisors, banking relationships, and gender classifications. Each table loaded as a separate query inside Power Query Editor, where the data types were reviewed and confirmed before the load completed.
+Power BI pulled in all the tables from the schema in a single connection — the main bankingx fact table along with the dimension tables for investment advisors, banking relationships, and gender classifications. Each table loaded as a separate query inside Power Query Editor, where data types were reviewed and confirmed before the load completed.
 
-The connection ran through the MySQL ODBC driver, which meant once the initial setup was done, refreshing the data in Power BI was as simple as clicking the Refresh button — the dashboard would pull the latest state of the database automatically.
+Once the connection was established, refreshing the data in Power BI was as simple as clicking Refresh — the dashboard would pull the latest state of the database automatically, making the pipeline repeatable and maintainable.
 
 
 Phase 4 — Data Modelling and Star Schema
 
 Tools: Power BI Desktop — Model View
 
-Once the tables were loaded, the relationships between them needed to be defined. This was done in Power BI's Model View, where the tables were arranged and connected to form a star schema.
+Once the tables were loaded, the relationships between them needed to be defined. This was done inside Power BI's Model View, where the tables were arranged and connected to form a proper star schema.
 
-The bankingx table — the main fact table — sat at the centre, holding the transactional and financial data for all 3,000 clients. The dimension tables radiated out from it: gender connected on GenderId, investment-advisors connected on IAId, and banking-realtionships connected on BRId. Each relationship was a one-to-many link, with the dimension table on the one side and the fact table on the many side, which is the correct structure for a star schema.
+The bankingx table — the main fact table — sat at the centre, holding the transactional and financial data for all 3,000 clients. Three dimension tables connected out from it: gender on GenderId, investment-advisors on IAId, and banking-realtionships on BRId. Each relationship was set as a one-to-many link, with the dimension table on the one side and the fact table on the many side — the correct structure for a star schema that allows filters to flow cleanly from dimension to fact.
 
 Show Image
-The Power BI data model showing the star schema structure, with the main client fact table connected to dimension tables for gender, investment advisors, and banking relationships.
 
-Getting this structure right before building any visuals was important. A correctly defined model means that when a user filters by gender or banking relationship type on the dashboard, that filter flows correctly through the relationships and affects every visual on the page — without any manual adjustments or workarounds.
+Getting this structure right before building any visuals was important. A correctly defined model means that when a user selects a gender or banking relationship filter on the dashboard, that filter flows through the relationships and updates every visual on the page simultaneously — without any manual workarounds or calculated columns to compensate for a broken model.
 
 
 Phase 5 — Dashboard Design with Canva
 
 Tools: Canva
 
-Before a single visual was placed in Power BI, the dashboard layout was designed first in Canva. This is a step that many analytics projects skip, and it shows. Without a design foundation, dashboards tend to end up as a collection of visuals placed wherever there was space — functional, but not professional.
+Before a single visual was placed in Power BI, the dashboard layout was designed in Canva first. This step is often skipped, and it shows in the output — dashboards built without a design foundation tend to look like a collection of visuals dropped wherever there was space.
 
-The design work in Canva established the colour palette, the navigation bar layout, the positioning of KPI cards across the top of each page, and the dark background theme that would run consistently across all four dashboard pages. The navigation buttons — Home, Loans, Deposits, and Q&A — were designed as rounded pill shapes and positioned at the top centre of each page, giving the dashboard a clean, app-like feel.
+The Canva work established the colour palette, the dark navy background theme, the navigation bar layout with pill-shaped buttons for Home, Loans, Deposits, and Q&A, the KPI card positions across the top of each page, and the overall visual hierarchy. The canvas size was set to 1280 x 720 pixels to match the Power BI report page dimensions exactly.
 
 Show Image
-Early stage dashboard background being designed in Canva, establishing the dark theme and layout grid that was then imported into Power BI as the page background.
 
-The finished background was exported as a PNG and imported into Power BI as the canvas background for each of the four report pages. All the Power BI visuals were then placed on top of this background, aligned to the design grid established in Canva.
+The finished background for each page was exported as a PNG and imported into Power BI as the canvas background. Every Power BI visual was then placed on top of this background, aligned to the grid that had been established in the design stage. The result was a dashboard that looked intentionally designed rather than assembled on the fly.
 
 
 Phase 6 — Building the 4-Page Interactive Dashboard
 
 Tools: Power BI Desktop · DAX
 
-With the data modelled and the design backgrounds in place, the dashboard was built page by page. Each page was given a specific focus and a consistent set of interactive filters that a user could adjust without leaving the page.
+With the data modelled and the design backgrounds in place, the dashboard was built page by page. Each page was given a specific analytical focus, a consistent set of interactive filters, and cross-page navigation through the button bar at the top.
 
-DAX Measures
-
-Before placing visuals, the core measures were defined using DAX. These included:
-
-
-Total Loan — calculated using SUMX across the loan columns to aggregate the full portfolio value
-Total Deposit — summing all deposit product types: bank deposits, savings accounts, checking accounts, and foreign currency holdings
-Total Fees — aggregating processing fee revenue across the client base
-High Risk Clients — a CALCULATE and FILTER measure that counts clients above a defined risk weighting threshold
-Total Clients by Engagement Timeframe — using DATEDIFF to calculate how long each client has been with the bank and grouping them into ranges
-
+Before placing visuals, the core DAX measures were written: SUMX for weighted loan and deposit totals, DISTINCTCOUNT for unique client counts, CALCULATE with FILTER for segment-level isolation such as high-risk clients, DATEDIFF for engagement duration calculations, and SWITCH for dynamic income band classification.
 
 Page 1 — Banking Analytics Dashboard (Home)
 
-The home page opens with four KPI cards at the top showing the headline numbers: 3,000 total clients, 4.38bn in total loans, 3.77bn in total deposits, and 158.19M in total fees. Below the KPI cards, the page breaks down the client base by banking relationship type, by income band, by loyalty class, and by region. A filter panel on the right allows users to slice the entire page by join year, engagement timeframe, gender, and age range.
+The home page opens with four KPI cards running across the top: 3K total clients, 4.38bn total loan, 3.77bn total deposit, and 158.19M total fees. Below the cards, the page breaks down the client base by banking relationship type across Private Bank, Retail, Institutional, and Commercial segments; by income band across High, Mid, and Low; by loyalty class across Jade, Silver, Gold, and Platinum; and by region across European, Asian, American, and Australian. A filter panel on the right lets users slice the whole page by join year, engagement timeframe, gender, and age range.
 
 Show Image
-The Home page of the Banking Analytics Dashboard showing KPI cards, client breakdown by banking relationship, income band, loyalty class, and regional distribution.
 
 Page 2 — Loan and Risk Analysis
 
-The loans page focuses on credit risk. The headline KPIs show total loan value broken into bank loans and business lending, credit card balance exposure, and the count of high-risk clients — 482 flagged clients out of the 3,000 total. Three charts run across the middle of the page: total loan by region as a horizontal bar chart, high-risk clients by year as a line chart, and total loan by occupation as another bar chart. Below these sits a detailed client table showing each client's name, total loan value, loyalty class, risk weighting, and assigned investment advisor. A secondary time-series chart tracks bank loans against business lending year by year.
+The loans page focuses entirely on credit exposure. Five KPI cards across the top show total loan at 4.38bn, bank loan at 1.77bn, business lending at 2.60bn, credit cards balance at 9.53M, and high-risk clients at 482. Three charts occupy the centre of the page: total loan by region as a horizontal bar chart showing European clients carrying the largest exposure, high-risk clients by year as a line chart tracking the trend from 2000 to 2020, and total loan by occupation. Below these sits a detailed client-level table showing each client's name, total loan value, loyalty class, risk weighting, and assigned investment advisor. A secondary time-series chart on the right tracks bank loans against business lending year by year.
 
 Show Image
-The Loans page showing credit risk KPIs, high-risk client trends over time, loan exposure by region and occupation, and the full client-level loan table.
 
 Page 3 — Deposit Analysis
 
-The deposits page mirrors the loans page in structure but focuses on the liability side of the portfolio. Five KPI cards along the top show total deposit at 801.24M, broken into bank deposits at 424.00M, savings accounts at 150.54M, checking accounts at 207.11M, and foreign currency at 19.60M. Charts on this page show total deposit by region, total deposit by loyalty class, and a donut chart breaking down the product mix across the four deposit types. A client engagement timeframe chart shows how long clients have been active, segmented into 1-5 years, 5-10 years, and more than 10 years.
+The deposits page mirrors the loans page in structure but focuses on the liability side of the portfolio. Five KPI cards across the top show total deposit at 801.24M broken into bank deposit at 424.00M, savings account at 150.54M, checking accounts at 207.11M, and foreign currency at 19.60M. Charts on this page show total deposit by region, total deposit by loyalty class across Jade, Silver, Gold, and Platinum, and a donut chart breaking down the product mix across all four deposit types. A client engagement timeframe chart on the right shows how long clients have been active, grouped into 1-5 years, 5-10 years, and more than 10 years. A detailed table beneath shows individual client deposit values alongside their loyalty class, investment advisor, and banking relationship.
 
 Show Image
-The Deposit Analysis page showing deposit KPIs broken down by product type, region, loyalty class, and client engagement duration.
 
-Page 4 — Data Explorer (Q&A)
+Page 4 — Data Explorer
 
-The fourth page provides an open-ended exploration tool built around a decomposition tree visual. Starting from the total loan value of 4.38bn, users can drill down by region, then by occupation, then by risk weighting — or in any order they choose. The decomposition tree recalculates in real time as the user selects drill-down paths, making it possible to answer questions that were never anticipated when the dashboard was designed.
+The fourth page is built around a decomposition tree visual that lets users drill into the total loan portfolio of 4.38bn from any angle they choose. Starting from the total, the tree can be expanded by region first — European clients at 1.94bn, Asian at 1.08bn, American at 730M, Australian at 382M — and then further drilled by occupation and risk weighting. The decomposition tree recalculates in real time as the user selects each path, making it possible to answer questions that were never anticipated when the dashboard was first designed. Four summary KPI cards at the top show total clients, total loan, total deposit, and average age across the filtered selection.
 
 Show Image
-The Data Explorer page showing the decomposition tree breaking down total loan value by region, occupation, and risk weighting.
 
 
 Phase 7 — Publishing to Power BI Service
 
 Tools: Power BI Service (app.powerbi.com)
 
-Once the dashboard was complete in Power BI Desktop, it was published to Power BI Service to make it accessible as a live report. Publishing to Power BI Service converted the .pbix file into a hosted report that any authorised user can open in a browser — no Power BI Desktop installation required.
+Once the dashboard was complete in Power BI Desktop, it was published to Power BI Service to make it accessible as a live hosted report. Publishing converted the .pbix file into a report that any authorised user can open directly in a browser — no Power BI Desktop installation required on their end.
 
-The live report preserves all the interactivity built into the dashboard. Every filter, every drill-down, and every cross-visual highlight works exactly as it does in the desktop version. The report is currently accessible via Power BI Service at the link below.
+The live report on Power BI Service preserves every piece of interactivity built into the desktop version. Every filter panel, every cross-visual highlight, every decomposition tree drill-down, and every navigation button works exactly as built. The report is currently hosted at the link below.
 
 View the Live Dashboard on Power BI Service
 
@@ -217,18 +222,13 @@ View the Live Dashboard on Power BI Service
 Key Findings
 
 
-The total loan portfolio across 3,000 clients stands at 4.38bn, with European clients accounting for the largest share by region.
-482 clients were flagged as high risk, representing a segment that warrants closer monitoring from investment advisors.
-Business lending of 2.60bn sits alongside bank loans of 1.77bn, with a notable upward trend in business lending in the years approaching 2020.
-The deposit portfolio totals 801.24M, with bank deposits making up the largest share and foreign currency holdings representing the smallest.
-The majority of clients — over 50 percent — fall in the mid income band, which also accounts for the largest share of loan uptake.
-Client engagement data shows a significant portion of the client base has been with the bank for more than 10 years, suggesting high retention in the core portfolio.
+The total loan portfolio across 3,000 clients stands at 4.38bn, with European clients carrying the largest share by region at 1.94bn.
+482 clients were flagged as high risk — a segment that shows a rising trend in the years approaching 2020, warranting closer monitoring from investment advisors.
+Business lending of 2.60bn exceeds bank loans of 1.77bn, with a sharp upward trend in business lending visible in the time-series chart from 2015 onwards.
+The deposit portfolio totals 801.24M, with bank deposits making up the largest share at 424M and foreign currency holdings the smallest at 19.60M.
+The majority of clients sit in the mid income band, which also accounts for the largest share of total loan uptake across the portfolio.
+Engagement timeframe data shows that the largest portion of the client base has been with the bank for more than 10 years, indicating strong retention in the core portfolio.
 
-
-
-Skills Demonstrated
-
-Python · Pandas · Matplotlib · Seaborn · Jupyter Notebook · MySQL · SQL · Relational Schema Design · Multi-Table Joins · Data Cleaning · Exploratory Data Analysis · Power BI · DAX · Star Schema · Data Modelling · Power Query · KPI Dashboard Design · Canva · Business Intelligence · Data Storytelling · Power BI Service
 
 
 How to Run This Project
@@ -247,10 +247,15 @@ Power BI Dashboard
 
 
 Open dashboard/Banking_Dashboard.pbix in Power BI Desktop
-Update the MySQL data source to point to your local instance
-Click Refresh to reload the data
-Navigate between pages using the top navigation bar
+Update the MySQL data source path to your local instance
+Click Refresh to reload all tables
+Navigate between pages using the top navigation buttons
 
+
+
+Skills Demonstrated
+
+Python · Pandas · Matplotlib · Seaborn · Jupyter Notebook · MySQL · SQL · Multi-Table Joins · Relational Schema Design · Data Cleaning · Exploratory Data Analysis · Power BI · DAX · Star Schema · Data Modelling · Power Query · KPI Dashboard Design · Canva · Business Intelligence · Data Storytelling · Power BI Service
 
 
 Feedback welcome — connect with me on LinkedIn or drop me an email.
