@@ -149,7 +149,7 @@ Once the dashboard was complete in Power BI Desktop, it was published to Power B
 
 The live report on Power BI Service preserves every piece of interactivity built into the desktop version. Every filter panel, every cross-visual highlight, every decomposition tree drill-down, and every navigation button works exactly as built. The report is currently hosted at the link below.
 
-View the Live Dashboard on Power BI Service - ![LINK](https://app.powerbi.com/view?r=eyJrIjoiZWQ1NjBjNGQtYmZkZC00YjE3LWFjMWYtOGM5ZDc5YTRkNzU3IiwidCI6ImU1ZWFlNDA1LWJhMTUtNDA0Yy05MTA2LWRkNGRhNzlhOWNjNiJ9) 
+View the Live Dashboard on Power BI Service - [LINK](https://app.powerbi.com/view?r=eyJrIjoiZWQ1NjBjNGQtYmZkZC00YjE3LWFjMWYtOGM5ZDc5YTRkNzU3IiwidCI6ImU1ZWFlNDA1LWJhMTUtNDA0Yy05MTA2LWRkNGRhNzlhOWNjNiJ9) 
 
 
 **Key Findings**
