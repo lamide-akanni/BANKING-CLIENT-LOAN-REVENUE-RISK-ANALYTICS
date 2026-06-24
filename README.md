@@ -4,7 +4,7 @@ An analytics project — from raw client data to a live, interactive Power BI da
 Tools: Python · My(SQL) · Power BI · Canva
 Dataset: 3,000 banking clients · 25 financial attributes
 
-
+![Python EDA — 7 regression scatter plots showing variable relationships across the client portfolio](screenshots/pythonRegPlot.png)
 
 
 
