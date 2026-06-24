@@ -1,39 +1,16 @@
 
-Banking Analytics Dashboard
+An analytics project — from raw client data to a live, interactive Power BI dashboard — covering exploratory data analysis in Python, relational database design in MySQL, data modelling and star schema in Power BI, dashboard design in Canva, and live report hosting via Power BI Service.
 
-A full end-to-end data analytics project — from raw client data to a live, interactive Power BI dashboard — covering exploratory data analysis in Python, relational database design in MySQL, data modelling and star schema in Power BI, dashboard design in Canva, and live report hosting via Power BI Service.
-
-
-Author: Olamide Akanni
-Tools: Python · MySQL · Power BI · Canva
+Tools: Python · My(SQL) · Power BI · Canva
 Dataset: 3,000 banking clients · 25 financial attributes
 
-Show Image
-Show Image
-Show Image
 
-
-Table of Contents
-
-
-Project Overview
-Business Questions
-Repository Structure
-Phase 1 — Exploratory Data Analysis in Python
-Phase 2 — Building the Relational Database in MySQL
-Phase 3 — Connecting MySQL to Power BI
-Phase 4 — Data Modelling and Star Schema
-Phase 5 — Dashboard Design with Canva
-Phase 6 — Building the 4-Page Interactive Dashboard
-Phase 7 — Publishing to Power BI Service
-Key Findings
-Skills Demonstrated
 
 
 
 Project Overview
 
-This project started with a single question: what does a banking client portfolio actually look like beneath the surface?
+This project started with a single question: What does a banking client portfolio actually look like beneath the surface?
 
 With 3,000 client records and 25 financial attributes to work with, the goal was to move through every stage of the analytics pipeline — from raw data sitting in a spreadsheet, all the way to a live, interactive dashboard that a business team could open and explore on their own. No shortcuts. No skipping steps.
 
