@@ -165,7 +165,7 @@ Engagement timeframe data shows that the largest portion of the client base has 
 
 
 ---
-Skills Demonstrated
+**Skills**
 
 Python · Pandas · Matplotlib · Seaborn · Jupyter Notebook · MySQL · SQL · Multi-Table Joins · Relational Schema Design · Data Cleaning · Exploratory Data Analysis · Power BI · DAX · Star Schema · Data Modelling · Power Query · KPI Dashboard Design · Canva · Business Intelligence · Data Storytelling · Power BI Service
 
@@ -176,7 +176,8 @@ Python · Pandas · Matplotlib · Seaborn · Jupyter Notebook · MySQL · SQL ·
 OLAMIDE AKANNI
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/olamide-akanni-b240ab18a/)
-[![Substack](https://img.shields.io/badge/Substack-FF6719?style=for-the-badge&logo=substack&logoColor=white)]([YOUR_SUBSTACK_URL](https://substack.com/@lamideakanni03))
+[![Substack](https://img.shields.io/badge/Substack-FF6719?style=for-the-badge&logo=substack&logoColor=white)](https://substack.com/@lamideakanni03)
+[![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@akannilmd)
 [![Gmail](https://img.shields.io/badge/Gmail-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:akannilmd@gmail.com)
 
 ---
